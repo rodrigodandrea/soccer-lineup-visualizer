@@ -16,16 +16,6 @@ formation = st.sidebar.selectbox("Select Formation", ["4-4-2", "4-3-3", "3-5-2",
 st.subheader("Player Roster")
 col1, col2 = st.columns(2)
 
-players = []
-with col1:
-    for i in range(1, 10):
-        name = st.text_input(f"Position {i}", f"Player {i}")
-        players.append(name)
-with col2:
-    for i in range(10, 20):
-        name = st.text_input(f"Position {i}", f"Player {i}")
-        players.append(name)
-
     # 1. Definimos las coordenadas fijas del campo
     # x: 0-120 (0 meta propia, 120 meta rival)
     # y: 0-80 (0 arriba, 80 abajo)
