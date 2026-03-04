@@ -1,6 +1,6 @@
 # ⚽ Soccer Lineup Visualizer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](TU_LINK_DE_STREAMLIT_AQUÍ)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://soccer-lineup-visualizer.streamlit.app/)
 
 A professional tactical board for soccer coaches and enthusiasts. This application allows users to create, visualize, and manage team lineups with a clean, data-driven interface.
 
