@@ -14,6 +14,7 @@ languages = {
         'sub_pos': "Primary Position",
         'roster': "Matchday Roster",
         'btn': "Generate Tactical View",
+        'download_btn': "Download Tactical Sheet (PNG)",
         'pos_names': {
             'ARQUERO': 'GK', 
             'LATERAL_DERECHO': 'RB', 'CENTRAL_DERECHO': 'RCB', 'CENTRAL_IZQUIERDO': 'LCB', 'LATERAL_IZQUIERDO': 'LB', # linea de 4 
@@ -34,6 +35,7 @@ languages = {
         'sub_pos': "Posición Principal",
         'roster': "Plantilla del Partido",
         'btn': "Generar Vista Táctica",
+        'download_btn': 'Descargar Planilla Táctica (PNG)",
         'pos_names': {
             'ARQUERO': '1', 
             'LATERAL_DERECHO': '4', 'CENTRAL_DERECHO': '2', 'CENTRAL_IZQUIERDO': '6', 'LATERAL_IZQUIERDO': '3', # linea de 4 
@@ -152,3 +154,15 @@ if st.button(texts['btn']):
     for idx, sub in enumerate(substitutes_data):
         with sub_list_cols[idx % 4]:
             st.info(f"**{sub['name']}** \n({sub['pos']})")
+
+import io
+
+    # 1. Guardar el gráfico en un buffer de memoria
+    fig.savefig(buf, format="png", bbox_inches='tight', dpi=300)
+    
+    st.download_button(
+        label=f"📥 {texts['download_btn']}",
+        data=buf.getvalue(),
+        file_name=f"lineup_{formation}.png",
+        mime="image/png"
+    )
