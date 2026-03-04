@@ -26,57 +26,51 @@ with col2:
         name = st.text_input(f"Position {i}", f"Player {i}")
         players.append(name)
 
-# 3. Coordinates logic based on formation
-# (x=0 is Goal, x=120 is Opponent Goal | y=0 is Top, y=80 is Bottom)
+
 def get_positions(form):
-    pos = {
-        "4-4-2": [
-            (5, 40), # GK
-            (25, 15), (25, 32), (25, 48), (25, 65), # Defense
-            (55, 15), (55, 32), (55, 48), (55, 65), # Midfield
-            (80, 30), (80, 50) # Attack
-        ],
-        "4-3-3": [
-            (5, 40), # GK
-            (25, 15), (25, 32), (25, 48), (25, 65), # Defense
-            (55, 25), (55, 40), (55, 55), # Midfield
-            (80, 20), (80, 40), (80, 60) # Attack
-        ],
-        "3-5-2": [
-            (5, 40), # GK
-            (25, 20), (25, 40), (25, 60), # Defense
-            (55, 10), (55, 25), (55, 40), (55, 55), (55, 70), # Midfield
-            (80, 30), (80, 50) # Attack
-        ],
-        "4-1-2-2-1": [
-            (5, 40), # GK
-            (25, 15), (25, 32), (25, 48), (25, 65), # Defense
-            (40, 40), # 5
-            (55, 25), (55, 55), # Midfield
-            (70, 10), (70, 70), 
-            (80, 40) # Attack
-        ]
-    }
-    return pos.get(form)
+    # 1. Definimos las coordenadas fijas del campo
+    # x: 0-120 (0 meta propia, 120 meta rival)
+    # y: 0-80 (0 arriba, 80 abajo)
+COORDS = {
+    'GK': (10, 40),
+    'RB': (30, 70), 'RCB': (30, 50), 'LCB': (30, 30), 'LB': (30, 10),
+    'RWB': (45, 70), 'LWB': (45, 10),
+    'CDM': (50, 40), 'RCM': (65, 55), 'LCM': (65, 25), 'CAM': (85, 40),
+    'RW': (100, 70), 'ST': (110, 40), 'LW': (100, 10),
+    'RS': (105, 55), 'LS': (105, 25)
+}
 
-# 4. Generate Visualization
+# 2. Definimos qué posiciones usa cada formación
+FORMATIONS = {
+    "4-4-2": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'RCM', 'LCM', 'RWB', 'LWB', 'RS', 'LS'],
+    "4-3-3": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CDM', 'RCM', 'LCM', 'RW', 'ST', 'LW'],
+    "3-5-2": ['GK', 'RCB', 'LCB', 'CDM', 'RWB', 'LWB', 'RCM', 'LCM', 'CAM', 'RS', 'LS'],
+    "4-1-2-2-1": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CMD', 'RCM', 'LCM', 'RW', 'LW', 'ST']
+}
+
+# 3. En la parte de la carga de jugadores (Input)
+st.subheader("Matchday Lineup")
+col1, col2 = st.columns(2)
+active_positions = FORMATIONS[form]
+player_data = {}
+
+for i, pos_name in enumerate(active_positions):
+    with col1 if i < 6 else col2:
+        name = st.text_input(f"{pos_name} Name", f"Player {i+1}")
+        player_data[pos_name] = name
+
+# 4. En la parte del dibujo (Generar vista)
 if st.button("Generate Tactical View"):
-    coords = get_positions(formation)
-    
-    # Draw Pitch
     pitch = Pitch(pitch_type='statsbomb', pitch_color='#22312b', line_color='#c7d5cc')
-    fig, ax = pitch.draw(figsize=(12, 8), constrained_layout=True, tight_layout=False)
-    fig.set_facecolor('#22312b')
-
-    # Scatter Players and Annotate Names
-    for i, (x, y) in enumerate(coords):
-        # Draw the jersey/circle
-        pitch.scatter(x, y, s=800, c='#e21017', edgecolors='#ffffff', linewidth=2, alpha=1, ax=ax)
-        # Add player name
-        pitch.annotate(players[i], xy=(x, y + 4), c='white', va='center',
-                       ha='center', size=12, weight='bold', ax=ax)
-        # Add number
-        pitch.annotate(str(i+1), xy=(x, y), c='white', va='center',
-                       ha='center', size=10, ax=ax)
-
+    fig, ax = pitch.draw(figsize=(12, 8))
+    
+    for pos_name, player_name in player_data.items():
+        x, y = COORDS[pos_name]
+        # Dibujamos el círculo
+        pitch.scatter(x, y, s=800, c='#e21017', edgecolors='#ffffff', ax=ax)
+        # Nombre del jugador
+        pitch.annotate(player_name, xy=(x, y + 5), c='white', va='center', ha='center', size=11, ax=ax)
+        # Sigla de la posición o número
+        pitch.annotate(pos_name, xy=(x, y), c='white', va='center', ha='center', size=8, weight='bold', ax=ax)
+    
     st.pyplot(fig)
