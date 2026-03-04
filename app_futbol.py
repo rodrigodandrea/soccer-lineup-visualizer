@@ -60,10 +60,10 @@ formation = st.sidebar.selectbox(texts['form_sel'], ["4-4-2", "3-5-2", "4-1-2-2-
 COORDS = {
     'ARQUERO': (5, 40), 'LATERAL_DERECHO': (25, 70), 'CENTRAL_DERECHO': (25, 50), 'CENTRAL_IZQUIERDO': (25, 30), 'LATERAL_IZQUIERDO': (25, 10),
     'DEFENSOR_DERECHO_CENTRAL': (25, 60), 'DEFENSOR_IZQUIERDO_CENTRAL': (25, 20), 'DEFENSOR_CENTRAL': (25, 40),
-    'MEDIO_CENTRO_DEFENSIVO': (40, 40),  'VOLANTE_OFENSIVO_DERECHO': (50, 50), 'VOLANTE_OFENSIVO_IZQUIERO': (50, 30), 
-    'VOLANTE_LATERAL_DERECHO': (55, 70), 'VOLANTE_LATERAL_IZQUIERDO': (55, 10), 'VOLANTE_CENTRO_DERECHA': (50, 50),
-    'PUNTERO_DERECHO': (70, 70), 'DELANTERO_CENTRO': (80, 40), 'PUNTERO_IZQUIERDO': (70, 10),
-    'DELANTERO_DERECHO': (85, 55), 'DELANTERO_IZQUIERDO': (85, 25)
+    'MEDIO_CENTRO_DEFENSIVO': (40, 40),  'VOLANTE_OFENSIVO_DERECHO': (55, 53), 'VOLANTE_OFENSIVO_IZQUIERO': (55, 27), 
+    'VOLANTE_LATERAL_DERECHO': (55, 70), 'VOLANTE_LATERAL_IZQUIERDO': (55, 10), 'VOLANTE_CENTRO_DERECHA': (55, 50),
+    'PUNTERO_DERECHO': (65, 70), 'DELANTERO_CENTRO': (75, 40), 'PUNTERO_IZQUIERDO': (65, 10),
+    'DELANTERO_DERECHO': (80, 55), 'DELANTERO_IZQUIERDO': (80, 25)
 }
 
 # DEFINICIÓN DE FORMACIONES
@@ -97,7 +97,7 @@ for i, pos_key in enumerate(active_positions):
 # 4. GENERAR VISTA
 if st.button(texts['btn']):
     # Creamos la cancha con estilo profesional (oscuro)
-    pitch = Pitch(pitch_type='statsbomb', pitch_color='#2b3d2b', line_color='#c7d5cc', stripe=True)
+    pitch = Pitch(pitch_type='statsbomb', pitch_color='#2b3d2b', line_color='#c7d5cc', stripe=False)
     fig, ax = pitch.draw(figsize=(12, 8))
     fig.set_facecolor('#2b3d2b')
     
