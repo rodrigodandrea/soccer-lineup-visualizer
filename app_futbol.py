@@ -35,7 +35,7 @@ languages = {
         'sub_pos': "Posición Principal",
         'roster': "Plantilla del Partido",
         'btn': "Generar Vista Táctica",
-        'download_btn': 'Descargar Planilla Táctica (PNG)",
+        'download_btn': "Descargar Planilla Táctica (PNG)",
         'pos_names': {
             'ARQUERO': '1', 
             'LATERAL_DERECHO': '4', 'CENTRAL_DERECHO': '2', 'CENTRAL_IZQUIERDO': '6', 'LATERAL_IZQUIERDO': '3', # linea de 4 
