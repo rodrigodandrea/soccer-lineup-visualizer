@@ -127,7 +127,7 @@ for j in range(1, 11): # Estándar de 7 suplentes
 if st.button(texts['btn']):
     # Creamos la cancha con estilo profesional (oscuro)
     pitch = Pitch(pitch_type='statsbomb', pitch_color='#2b3d2b', line_color='#c7d5cc', stripe=False)
-    fig, ax = pitch.draw(figsize=(12, 8))
+    fig, ax = pitch.draw(figsize=(12, 12))
     fig.set_facecolor('#2b3d2b')
     
     for pos_key, player_name in player_data.items():
@@ -145,6 +145,22 @@ if st.button(texts['btn']):
             # Posición (Número/Sigla) dentro del círculo
             pitch.annotate(translated_pos, xy=(x, y), c='white', va='center', ha='center', 
                            size=10, weight='bold', ax=ax, zorder=4)
+
+
+# Ponemos un título para los suplentes debajo de la cancha (y_base < 0)
+    y_base = -5 
+    ax.text(60, y_base, f"--- {texts['substitutes'].upper()} ---", 
+            color='white', fontsize=14, fontweight='bold', ha='center')
+    
+    # Bucle para escribir los suplentes en la imagen
+    for idx, sub in enumerate(substitutes_data):
+        row = idx // 5  # 5 suplentes por fila
+        col = idx % 5
+        # Calculamos la posición x e y dentro de la imagen
+        x_text = 15 + (col * 22)
+        y_text = y_base - 7 - (row * 5)
+        ax.text(x_text, y_text, f"{sub['name']}\n({sub['pos']})", 
+                color='lightgray', fontsize=9, ha='center', va='top')
     
     st.pyplot(fig)
 
