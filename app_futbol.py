@@ -33,7 +33,7 @@ FORMATIONS = {
     "4-4-2": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'RCM', 'LCM', 'RWB', 'LWB', 'RS', 'LS'],
     "4-3-3": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CDM', 'RCM', 'LCM', 'RW', 'ST', 'LW'],
     "3-5-2": ['GK', 'RCB', 'LCB', 'CDM', 'RWB', 'LWB', 'RCM', 'LCM', 'CAM', 'RS', 'LS'],
-    "4-1-2-2-1": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CMD', 'RCM', 'LCM', 'RW', 'LW', 'ST']
+    "4-1-2-2-1": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CDM', 'RCM', 'LCM', 'RW', 'LW', 'ST']
 }
 
 # 3. En la parte de la carga de jugadores (Input)
