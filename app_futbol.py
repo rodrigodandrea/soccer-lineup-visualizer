@@ -10,6 +10,8 @@ languages = {
         'settings': "Team Settings",
         'lang_sel': "Select Language",
         'form_sel': "Select Formation",
+        'substitutes': "Substitutes / Bench",
+        'sub_pos': "Primary Position",
         'roster': "Matchday Roster",
         'btn': "Generate Tactical View",
         'pos_names': {
@@ -28,10 +30,12 @@ languages = {
         'settings': "Configuración de Equipo",
         'lang_sel': "Elegir Idioma",
         'form_sel': "Elegir Formación",
+        'substitutes': "Banco de Suplentes",
+        'sub_pos': "Posición Principal",
         'roster': "Plantilla del Partido",
         'btn': "Generar Vista Táctica",
         'pos_names': {
-            'ARQUERO': 'ARQ', 
+            'ARQUERO': '1', 
             'LATERAL_DERECHO': '4', 'CENTRAL_DERECHO': '2', 'CENTRAL_IZQUIERDO': '6', 'LATERAL_IZQUIERDO': '3', # linea de 4 
             'DEFENSOR_DERECHO_CENTRAL': '4', 'DEFENSOR_IZQUIERDO_CENTRAL': '3', 'DEFENSOR_CENTRAL': '2', # linea de 3
             'MEDIO_CENTRO_DEFENSIVO': '5', 'VOLANTE_OFENSIVO_DERECHO': '8', 'VOLANTE_OFENSIVO_IZQUIERO': '10', # medio con 3
@@ -94,6 +98,29 @@ for i, pos_key in enumerate(active_positions):
         name = st.text_input(f"{translated_pos}", f"Player {i+1}", key=f"in_{pos_key}")
         player_data[pos_key] = name
 
+# 3.5. SECCIÓN DE SUPLENTES
+st.divider()
+st.subheader(texts['substitutes'])
+
+sub_col1, sub_col2 = st.columns(2)
+substitutes_data = []
+
+# Lista de todas las posiciones posibles para el dropdown
+all_positions = list(COORDS.keys())
+
+for j in range(1, 11): # Estándar de 7 suplentes
+    with sub_col1 if j < 5 else sub_col2:
+        c1, c2 = st.columns([2, 1])
+        with c1:
+            sub_name = st.text_input(f"Suplente {j}", f"Sub {j}", key=f"sub_n_{j}")
+        with c2:
+            # Selector de posición sugerida para el suplente
+            sub_p = st.selectbox(f"{texts['sub_pos']} {j}", all_positions, key=f"sub_p_{j}")
+            # Traducimos la sigla para que se vea bien (ej: 'GK' -> 'ARQ')
+            display_pos = texts['pos_names'].get(sub_p, sub_p)
+        
+        substitutes_data.append({'name': sub_name, 'pos': display_pos})
+
 # 4. GENERAR VISTA
 if st.button(texts['btn']):
     # Creamos la cancha con estilo profesional (oscuro)
@@ -118,3 +145,10 @@ if st.button(texts['btn']):
                            size=10, weight='bold', ax=ax, zorder=4)
     
     st.pyplot(fig)
+
+# MOSTRAR LISTA DE SUPLENTES DEBAJO
+    st.markdown(f"### 📋 {texts['substitutes']}")
+    sub_list_cols = st.columns(4)
+    for idx, sub in enumerate(substitutes_data):
+        with sub_list_cols[idx % 4]:
+            st.info(f"**{sub['name']}** \n({sub['pos']})")
