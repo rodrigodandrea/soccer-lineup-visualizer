@@ -13,9 +13,13 @@ languages = {
         'roster': "Matchday Roster",
         'btn': "Generate Tactical View",
         'pos_names': {
-            'GK': 'GK', 'RB': 'RB', 'RCB': 'RCB', 'LCB': 'LCB', 'LB': 'LB', 
-            'CDM': 'CDM', 'RCM': 'RCM', 'LCM': 'LCM', 'RW': 'RW', 'ST': 'ST', 'LW': 'LW',
-            'CAM': 'CAM', 'RWB': 'RWB', 'LWB': 'LWB', 'RS': 'RS', 'LS': 'LS'
+            'ARQUERO': 'GK', 
+            'LATERAL_DERECHO': 'RB', 'CENTRAL_DERECHO': 'RCB', 'CENTRAL_IZQUIERDO': 'LCB', 'LATERAL_IZQUIERDO': 'LB', # linea de 4 
+            'DEFENSOR_DERECHO_CENTRAL': 'RWB', 'DEFENSOR_IZQUIERDO_CENTRAL': 'LWB', 'DEFENSOR_CENTRAL': 'CB', # linea de 3
+            'MEDIO_CENTRO_DEFENSIVO': 'CDM', 'VOLANTE_OFENSIVO_DERECHO': 'CAMR', 'VOLANTE_OFENSIVO_IZQUIERO': 'CAML', # medio con 3
+            'VOLANTE_LATERAL_DERECHO': 'RCM', 'VOLANTE_LATERAL_IZQUIERDO': 'LCM', 'VOLANTE_CENTRO_DERECHA': 'CM',
+            'PUNTERO_DERECHO': 'RW', 'PUNTERO_IZQUIERDO': 'LW', 'DELANTERO_CENTRO': 'ST',
+            'DELANTERO_IZQUIERDO': 'LS',  'DELANTERO_DERECHO': 'RS'
         }
     },
     'Español': {
@@ -27,9 +31,13 @@ languages = {
         'roster': "Plantilla del Partido",
         'btn': "Generar Vista Táctica",
         'pos_names': {
-            'GK': 'ARQ', 'RB': '4', 'RCB': '2', 'LCB': '6', 'LB': '3', 
-            'CDM': '5', 'RCM': '8', 'LCM': '10', 'RW': '7', 'ST': '9', 'LW': '11',
-            'CAM': '5', 'RWB': '4', 'LWB': '3', 'RS': '9', 'LS': '7'
+            'ARQUERO': 'ARQ', 
+            'LATERAL_DERECHO': '4', 'CENTRAL_DERECHO': '2', 'CENTRAL_IZQUIERDO': '6', 'LATERAL_IZQUIERDO': '3', # linea de 4 
+            'DEFENSOR_DERECHO_CENTRAL': '4', 'DEFENSOR_IZQUIERDO_CENTRAL': '3', 'DEFENSOR_CENTRAL': '2', # linea de 3
+            'MEDIO_CENTRO_DEFENSIVO': '5', 'VOLANTE_OFENSIVO_DERECHO': '8', 'VOLANTE_OFENSIVO_IZQUIERO': '10', # medio con 3
+            'VOLANTE_LATERAL_DERECHO': '8', 'VOLANTE_LATERAL_IZQUIERDO': '11', 'VOLANTE_CENTRO_DERECHA': '5',
+            'PUNTERO_DERECHO': '7', 'PUNTERO_IZQUIERDO': '11', 'DELANTERO_CENTRO': '9',
+            'DELANTERO_IZQUIERDO': '9',  'DELANTERO_DERECHO': '7'
         }
     }
 }
@@ -50,18 +58,28 @@ formation = st.sidebar.selectbox(texts['form_sel'], ["4-4-2", "4-3-3", "3-5-2", 
 
 # COORDENADAS FIJAS
 COORDS = {
-    'GK': (10, 40), 'RB': (30, 70), 'RCB': (30, 50), 'LCB': (30, 30), 'LB': (30, 10),
-    'RWB': (45, 70), 'LWB': (45, 10), 'CDM': (50, 40), 'RCM': (65, 55), 'LCM': (65, 25), 
-    'CAM': (85, 40), 'RW': (100, 70), 'ST': (110, 40), 'LW': (100, 10),
-    'RS': (105, 55), 'LS': (105, 25)
+    'ARQUERO': (5, 40), 'LATERAL_DERECHO': (25, 70), 'CENTRAL_DERECHO': (25, 50), 'CENTRAL_IZQUIERDO': (25, 30), 'LATERAL_IZQUIERDO': (25, 10),
+    'DEFENSOR_DERECHO_CENTRAL': (25, 60), 'DEFENSOR_IZQUIERDO_CENTRAL': (25, 20), 'DEFENSOR_CENTRAL': (25, 40),
+    'MEDIO_CENTRO_DEFENSIVO': (40, 40),  'VOLANTE_OFENSIVO_DERECHO': (50, 55), 'VOLANTE_OFENSIVO_IZQUIERO': (50, 25), 
+    'VOLANTE_LATERAL_DERECHO': (55, 70), 'VOLANTE_LATERAL_IZQUIERDO': (55, 10), 'VOLANTE_CENTRO_DERECHA': (50, 55),
+    'PUNTERO_DERECHO': (70, 70), 'DELANTERO_CENTRO': (80, 40), 'PUNTERO_IZQUIERDO': (70, 10),
+    'DELANTERO_DERECHO': (85, 55), 'DELANTERO_IZQUIERDO': (85, 25)
 }
 
 # DEFINICIÓN DE FORMACIONES
 FORMATIONS = {
-    "4-4-2": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'RCM', 'LCM', 'RWB', 'LWB', 'RS', 'LS'],
-    "4-3-3": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CDM', 'RCM', 'LCM', 'RW', 'ST', 'LW'],
-    "3-5-2": ['GK', 'RCB', 'LCB', 'CDM', 'RWB', 'LWB', 'RCM', 'LCM', 'CAM', 'RS', 'LS'],
-    "4-1-2-2-1": ['GK', 'RB', 'RCB', 'LCB', 'LB', 'CDM', 'RCM', 'LCM', 'RW', 'LW', 'ST']
+    "4-4-2": ['ARQUERO', 
+              'LATERAL_DERECHO', 'CENTRAL_DERECHO', 'CENTRAL_IZQUIERDO', 'LATERAL_IZQUIERDO', 
+              'VOLANTE_LATERAL_DERECHO', 'VOLANTE_CENTRO_DERECHA', 'VOLANTE_OFENSIVO_IZQUIERO', 'VOLANTE_LATERAL_IZQUIERDO', 
+              'DELANTERO_DERECHO', 'DELANTERO_IZQUIERDO'],
+    "3-5-2": ['ARQUERO', 
+              'DEFENSOR_DERECHO_CENTRAL', 'DEFENSOR_IZQUIERDO_CENTRAL', 'DEFENSOR_CENTRAL',
+              'VOLANTE_LATERAL_DERECHO', 'VOLANTE_CENTRO_DERECHA', 'MEDIO_CENTRO_DEFENSIVO', 'VOLANTE_OFENSIVO_IZQUIERO', 'VOLANTE_LATERAL_IZQUIERDO', 
+              'DELANTERO_DERECHO', 'DELANTERO_IZQUIERDO'],
+    "4-1-2-2-1": ['ARQUERO', 
+              'LATERAL_DERECHO', 'CENTRAL_DERECHO', 'CENTRAL_IZQUIERDO', 'LATERAL_IZQUIERDO', 
+              'VOLANTE_CENTRO_DERECHA', 'MEDIO_CENTRO_DEFENSIVO', 'VOLANTE_OFENSIVO_IZQUIERO',
+              'PUNTERO_DERECHO' 'DELANTERO_CENTRO', 'PUNTERO_IZQUIERDO']
 }
 
 # 3. INPUT DE JUGADORES
