@@ -26,8 +26,6 @@ with col2:
         name = st.text_input(f"Position {i}", f"Player {i}")
         players.append(name)
 
-
-def get_positions(form):
     # 1. Definimos las coordenadas fijas del campo
     # x: 0-120 (0 meta propia, 120 meta rival)
     # y: 0-80 (0 arriba, 80 abajo)
@@ -51,7 +49,7 @@ FORMATIONS = {
 # 3. En la parte de la carga de jugadores (Input)
 st.subheader("Matchday Lineup")
 col1, col2 = st.columns(2)
-active_positions = FORMATIONS[form]
+active_positions = FORMATIONS[formation]
 player_data = {}
 
 for i, pos_name in enumerate(active_positions):
