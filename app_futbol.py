@@ -10,7 +10,7 @@ st.markdown("Enter the names and select a formation to see your team on the pitc
 
 # 1. Sidebar for Team Selection
 st.sidebar.header("Team Settings")
-formation = st.sidebar.selectbox("Select Formation", ["4-4-2", "4-3-3", "3-5-2"])
+formation = st.sidebar.selectbox("Select Formation", ["4-4-2", "4-3-3", "3-5-2", "4-1-2-2-1"])
 
 # 2. Player Input Logic
 st.subheader("Player Roster")
@@ -18,11 +18,11 @@ col1, col2 = st.columns(2)
 
 players = []
 with col1:
-    for i in range(1, 7):
+    for i in range(1, 10):
         name = st.text_input(f"Position {i}", f"Player {i}")
         players.append(name)
 with col2:
-    for i in range(7, 12):
+    for i in range(10, 20):
         name = st.text_input(f"Position {i}", f"Player {i}")
         players.append(name)
 
@@ -47,6 +47,14 @@ def get_positions(form):
             (30, 20), (30, 40), (30, 60), # Defense
             (60, 10), (60, 25), (60, 40), (60, 55), (60, 70), # Midfield
             (100, 30), (100, 50) # Attack
+        ],
+        "4-1-2-2-1": [
+            (10, 40), # GK
+            (30, 15), (30, 32), (30, 48), (30, 65), # Defense
+            (45, 40), # 5
+            (60, 30), (60, 50), # Midfield
+            (80, 10), (80, 70), 
+            (100, 40) # Attack
         ]
     }
     return pos.get(form)
