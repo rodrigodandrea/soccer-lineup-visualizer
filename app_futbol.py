@@ -154,10 +154,9 @@ if st.button(texts['btn']):
     for idx, sub in enumerate(substitutes_data):
         with sub_list_cols[idx % 4]:
             st.info(f"**{sub['name']}** \n({sub['pos']})")
-
-import io
-
-    # 1. Guardar el gráfico en un buffer de memoria
+            
+    import io
+    buf = io.BytesIO()
     fig.savefig(buf, format="png", bbox_inches='tight', dpi=300)
     
     st.download_button(
